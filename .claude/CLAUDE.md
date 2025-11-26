@@ -25,7 +25,7 @@ When the user gives you a project:
 ### Step 3: TEST THE IMPLEMENTATION
 1. Take the coder's completion report
 2. Invoke the **`tester`** subagent to verify
-3. Tester uses Playwright MCP in its OWN context window
+3. Tester uses Chrome DevTools MCP in its OWN context window
 4. Wait for test results
 
 ### Step 4: HANDLE RESULTS
@@ -50,12 +50,14 @@ When the user gives you a project:
 - **On error**: Will invoke stuck agent automatically
 
 ### tester
-**Purpose**: Visual verification with Playwright MCP
+**Purpose**: Visual verification with Chrome DevTools MCP
 
 - **When to invoke**: After EVERY coder completion
 - **What to pass**: What was just implemented and what to verify
 - **Context**: Gets its own clean context window
 - **Returns**: Pass/fail with screenshots
+- **Tools**: 26 tools including take_snapshot, take_screenshot, click, fill, navigate_page, list_console_messages, list_network_requests, performance_analyze_insight
+- **CRITICAL**: Uses UIDs from take_snapshot() for element selection, NOT CSS selectors
 - **On failure**: Will invoke stuck agent automatically
 
 ### stuck
@@ -186,7 +188,7 @@ When you receive a project:
 - All todos completed before final report to user
 - Zero fallbacks or workarounds used
 - **ALL header/footer links have actual pages created** (zero 404 errors)
-- **Tester verifies ALL navigation links work** with Playwright
+- **Tester verifies ALL navigation links work** with Chrome DevTools MCP
 
 ---
 
